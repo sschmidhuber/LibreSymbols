@@ -1,0 +1,20 @@
+The Initial Developer of this extension is:
+	Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
+Copyright 2008. All Rights reserverd.
+
+Credit:
+      Uwe Homm - logic gates
+
+This extension is free software; you can redistribute it and/or modify it under the terms of one of the following licenses:
+
+- Creative Commons Attribution-Share Alike 2.0 Austria License. (http://creativecommons.org/licenses/by-sa/2.0/at/)
+
+- GNU Lesser General Public License Version 3 (http://www.gnu.org/licenses/lgpl-3.0.html)
+
+- GNU Lesser General Public License Version 2.1 (http://www.gnu.org/licenses/lgpl-2.1.html)
+
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+For more information see the developers website at
+http://code.google.com/p/freie-schaltzeichen

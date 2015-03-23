@@ -1,0 +1,21 @@
+Der Urheber dieser Extension ist
+	Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
+Copyright 2008. Alle Rechte vorbehalten.
+
+Credit:
+      Uwe Homm - Logische Gatter
+
+Diese Extension ist freie Software. Sie darf entsprechend einer der folgenden Lizenzen verwendet, bearbeitet und verbreitet werden.
+
+- Creative Commons Attribution-Share Alike 2.0 Austria License. (http://creativecommons.org/licenses/by-sa/2.0/at/)
+
+- GNU Lesser General Public License Version 3 (http://www.gnu.de/documents/lgpl-3.0.de.html)
+
+- GNU Lesser General Public License Version 2.1 (http://www.gnu.de/documents/lgpl-2.1.de.html)
+
+
+Diese Extension wird in der Hoffnung verteilt, dass sie Nutzen für den Anwender bringt, aber OHNE JEDE GARANTIE. Es bestehen weder Gewährleistungsansprüche irgendwelcher Art noch die Zusicherung irgendwelcher Eigenschaften. Bitte lesen Sie den Lizenztext der GNU LGPL für detailierte Informationen.
+
+
+Weitere Informationen finden Sie auf der Webseite des Autors
+http://code.google.com/p/freie-schaltzeichen
