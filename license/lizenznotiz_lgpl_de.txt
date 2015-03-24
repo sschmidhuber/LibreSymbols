@@ -1,8 +1,9 @@
-Der Urheber dieser Extension ist
+Die Urheber dieser Extension sind
 	Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
-Copyright 2008. Alle Rechte vorbehalten.
+	Vikas V.
+Copyright 2015. Alle Rechte vorbehalten.
 
-Credit:
+Dank an:
       Uwe Homm - Logische Gatter
 
 Diese Extension ist freie Software. Sie darf entsprechend einer der folgenden Lizenzen verwendet, bearbeitet und verbreitet werden.
@@ -18,4 +19,4 @@ Diese Extension wird in der Hoffnung verteilt, dass sie Nutzen für den Anwender
 
 
 Weitere Informationen finden Sie auf der Webseite des Autors
-http://code.google.com/p/freie-schaltzeichen
+https://github.com/sschmidhuber/LibreSymbols

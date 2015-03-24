@@ -1,6 +1,7 @@
-The Initial Developer of this extension is:
+The Developers of this extension are:
 	Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
-Copyright 2008. All Rights reserverd.
+	Vikas V.
+Copyright 2015. All Rights reserverd.
 
 Credit:
       Uwe Homm - logic gates
@@ -16,5 +17,5 @@ This extension is free software; you can redistribute it and/or modify it under 
 
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 
-For more information see the developers website at
-http://code.google.com/p/freie-schaltzeichen
+For more information see the project website at
+https://github.com/sschmidhuber/LibreSymbols
