@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+
+# This is an interactive script to build LibreSymbols extensions.
+#
+# LibreSymbols
+#
+# Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
+
+echo "not yet implemented"
