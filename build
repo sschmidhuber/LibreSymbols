@@ -30,7 +30,6 @@ get_tag() {
       exit 1
     fi
   else
-    VALID="false"
     for tmp in $(git tag -l); do
       if [ $tmp = $TAG ]; then
 	return 0
@@ -38,9 +37,16 @@ get_tag() {
     done
     echo 'ERROR: invalid tag "'$TAG'"'
     exit 1
-  fi      
+  fi
 }
 
+build_extension() {
+  sleep 1
+  echo -e 'yet not implemented'
+  sleep 1
+  
+  return 0
+}
 
 # entry point
 
@@ -56,4 +62,10 @@ if [ $# -gt 1 ]; then
 fi
 
 get_tag $1
-echo $TAG
+
+# remember current branch
+BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
+
+git checkout $TAG
+build_extension
+git checkout $BRANCH
