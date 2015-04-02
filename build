@@ -6,4 +6,11 @@
 #
 # Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
 
-echo "not yet implemented"
+# first parameter identifies the git tag
+if [ -z $1 ]; then
+  TAG="last"
+else
+  TAG=$1
+fi
+
+echo $TAG
