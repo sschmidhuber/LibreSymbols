@@ -41,9 +41,22 @@ get_tag() {
 }
 
 build_extension() {
-  sleep 1
-  echo -e 'yet not implemented'
-  sleep 1
+  TEMP_DIR=$(mktemp -d)
+  WORKING_DIR=$(pwd)
+  
+  cp description.xml ${TEMP_DIR}/description.xml
+  cp Paths.xcu ${TEMP_DIR}/Paths.xcu
+  cp -r license ${TEMP_DIR}/license
+  cp -r META-INF ${TEMP_DIR}/META-INF
+  mkdir ${TEMP_DIR}/gallery
+  cp gallery/en/* ${TEMP_DIR}/gallery/
+  
+  cd ${TEMP_DIR}  
+  zip -rq LibreSymbols_${TAG}_en.zip *
+  mv LibreSymbols_${TAG}_en.zip LibreSymbols_${TAG}_en.oxt
+  cd ${WORKING_DIR}
+  cp ${TEMP_DIR}/LibreSymbols_${TAG}_en.oxt .
+  rm -r ${TEMP_DIR}
   
   return 0
 }
@@ -62,10 +75,14 @@ if [ $# -gt 1 ]; then
 fi
 
 get_tag $1
+echo -n 'building LibreSymbols version '$TAG' ... '
 
 # remember current branch
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
-git checkout $TAG
+git checkout $TAG &> /dev/null
 build_extension
-git checkout $BRANCH
+git checkout $BRANCH &> /dev/null
+
+sleep 1
+echo 'done'
