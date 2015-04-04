@@ -89,12 +89,23 @@ get_tag $1
 # remember current branch
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
-echo 'delete old builds ...'
-rm LibreSymbols_${TAG}_*
-git checkout $TAG #&> /dev/null
+# remove old bilds
+if [ -e LibreSymbols_${TAG}_* ]; then
+  echo 'delete old builds ...'
+  rm LibreSymbols_${TAG}_*
+fi
+
+# checkout target version
+git checkout $TAG &> /dev/null
+if [ $? -ne 0 ]; then
+  echo 'checkout '${TAG}' failed, please check if your working directory is clean'
+  echo 'commit your changes or try "git stash" to fix this issue'
+  
+  exit 1
+fi
 echo -n 'building LibreSymbols version '$TAG' ... '
 build_extension
-git checkout $BRANCH #&> /dev/null
+git checkout $BRANCH &> /dev/null
 
 if [ -e LibreSymbols_${TAG}_en.oxt ]; then
   echo 'finished succesful'
