@@ -8,9 +8,9 @@
 
 
 print_help() {
-  echo -e 'Usage: ./build [version]'
-  echo -e 'Build a LibreSymbols extension of the given version or the latest'
-  echo -e 'version if none is given. The optional  parameter "version" is a git tag.'  
+  echo 'Usage: ./build [version]'
+  echo 'Build a LibreSymbols extension of the given version or the latest'
+  echo 'version if none is given. The optional  parameter "version" is a git tag.'  
   exit 0
 }
 
@@ -42,11 +42,10 @@ get_tag() {
 
 build_extension() {
   for LANG in $(ls gallery); do
+    # create temporary directory
     TEMP_DIR=$(mktemp -d)
-    WORKING_DIR=$(pwd)
-      
-    # include templates
     
+    # copy files
     cp description.xml ${TEMP_DIR}/description.xml
     cp Paths.xcu ${TEMP_DIR}/Paths.xcu
     cp -r license ${TEMP_DIR}/license
@@ -66,10 +65,10 @@ build_extension() {
     # clean up
     cd ${WORKING_DIR}
     rm -r ${TEMP_DIR}
-  done
-  
+  done  
   return 0
 }
+
 
 # entry point
 
@@ -86,7 +85,8 @@ fi
 
 get_tag $1
 
-# remember current branch
+# remember current directory and branch
+WORKING_DIR=$(pwd)
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
 # remove old builds
@@ -103,6 +103,7 @@ if [ $? -ne 0 ]; then
   
   exit 1
 fi
+
 echo -n 'building LibreSymbols version '$TAG' ... '
 build_extension
 git checkout $BRANCH &> /dev/null
