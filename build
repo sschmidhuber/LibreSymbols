@@ -89,8 +89,8 @@ get_tag $1
 # remember current branch
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
-# remove old bilds
-if [ -e LibreSymbols_${TAG}_* ]; then
+# remove old builds
+if [ $(ls -l LibreSymbols_${TAG}_* | wc -l) -gt 0 ]; then
   echo 'delete old builds ...'
   rm LibreSymbols_${TAG}_*
 fi
@@ -107,7 +107,7 @@ echo -n 'building LibreSymbols version '$TAG' ... '
 build_extension
 git checkout $BRANCH &> /dev/null
 
-if [ -e LibreSymbols_${TAG}_en.oxt ]; then
+if [ $(ls -l LibreSymbols_${TAG}_* | wc -l) -gt 0 ]; then
   echo 'finished succesful'
 else
   echo 'failed'
