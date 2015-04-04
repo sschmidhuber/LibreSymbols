@@ -41,22 +41,32 @@ get_tag() {
 }
 
 build_extension() {
-  TEMP_DIR=$(mktemp -d)
-  WORKING_DIR=$(pwd)
-  
-  cp description.xml ${TEMP_DIR}/description.xml
-  cp Paths.xcu ${TEMP_DIR}/Paths.xcu
-  cp -r license ${TEMP_DIR}/license
-  cp -r META-INF ${TEMP_DIR}/META-INF
-  mkdir ${TEMP_DIR}/gallery
-  cp gallery/en/* ${TEMP_DIR}/gallery/
-  
-  cd ${TEMP_DIR}  
-  zip -rq LibreSymbols_${TAG}_en.zip *
-  mv LibreSymbols_${TAG}_en.zip LibreSymbols_${TAG}_en.oxt
-  cd ${WORKING_DIR}
-  cp ${TEMP_DIR}/LibreSymbols_${TAG}_en.oxt .
-  rm -r ${TEMP_DIR}
+  for LANG in $(ls gallery); do
+    TEMP_DIR=$(mktemp -d)
+    WORKING_DIR=$(pwd)
+      
+    # include templates
+    
+    cp description.xml ${TEMP_DIR}/description.xml
+    cp Paths.xcu ${TEMP_DIR}/Paths.xcu
+    cp -r license ${TEMP_DIR}/license
+    cp -r META-INF ${TEMP_DIR}/META-INF
+    mkdir ${TEMP_DIR}/gallery
+    cp gallery/${LANG}/* ${TEMP_DIR}/gallery/  
+    cd ${TEMP_DIR}
+    
+    # set meta data
+    awk '{sub(/VERSION/, '$TAG'); print $0}' description.xml > description.xml_changed
+    mv description.xml_changed description.xml
+    
+    # zip files
+    zip -rq LibreSymbols_${TAG}_${LANG}.zip *
+    mv LibreSymbols_${TAG}_${LANG}.zip ${WORKING_DIR}/LibreSymbols_${TAG}_${LANG}.oxt
+    
+    # clean up
+    cd ${WORKING_DIR}
+    rm -r ${TEMP_DIR}
+  done
   
   return 0
 }
@@ -75,14 +85,19 @@ if [ $# -gt 1 ]; then
 fi
 
 get_tag $1
-echo -n 'building LibreSymbols version '$TAG' ... '
 
 # remember current branch
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
-git checkout $TAG &> /dev/null
+echo 'delete old builds ...'
+rm LibreSymbols_${TAG}_*
+git checkout $TAG #&> /dev/null
+echo -n 'building LibreSymbols version '$TAG' ... '
 build_extension
-git checkout $BRANCH &> /dev/null
+git checkout $BRANCH #&> /dev/null
 
-sleep 1
-echo 'done'
+if [ -e LibreSymbols_${TAG}_en.oxt ]; then
+  echo 'finished succesful'
+else
+  echo 'failed'
+fi
