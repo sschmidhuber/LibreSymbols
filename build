@@ -7,6 +7,10 @@
 # Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
 
 
+# target directory for extension files
+EXTENSIONS="extensions"
+
+
 print_help() {
   echo 'Usage: ./build [version]'
   echo 'Build a LibreSymbols extension of the given version or the latest'
@@ -60,7 +64,7 @@ build_extension() {
     
     # zip files
     zip -rq LibreSymbols_${TAG}_${LANG}.zip *
-    mv LibreSymbols_${TAG}_${LANG}.zip ${WORKING_DIR}/LibreSymbols_${TAG}_${LANG}.oxt
+    mv LibreSymbols_${TAG}_${LANG}.zip ${WORKING_DIR}/${EXTENSIONS}/LibreSymbols_${TAG}_${LANG}.oxt
     
     # clean up
     cd ${WORKING_DIR}
@@ -90,9 +94,9 @@ WORKING_DIR=$(pwd)
 BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
 
 # remove old builds
-if [ $(ls -l LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
+if [ $(ls -l ${EXTENSIONS}/LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
   echo 'delete old builds ...'
-  rm LibreSymbols_${TAG}_*
+  rm ${EXTENSIONS}/LibreSymbols_${TAG}_*
 fi
 
 # checkout target version
@@ -108,7 +112,7 @@ echo -n 'building LibreSymbols version '$TAG' ... '
 build_extension
 git checkout $BRANCH &> /dev/null
 
-if [ $(ls -l LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
+if [ $(ls -l ${EXTENSIONS}/LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
   echo 'finished succesful'
 else
   echo 'failed'
