@@ -8,8 +8,7 @@
 
 
 # target directory for extension files
-EXTENSIONS="extensions"
-
+EXTENSIONS=.
 
 print_help() {
   echo 'Usage: ./build [version]'
