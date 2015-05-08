@@ -2,7 +2,7 @@
 
 ![LibreSymbols](doc/iconandname.jpg "LibreSymbols")
 
-A set of gallery symbols for LibreOffice and Apache OpenOffice.
+A set of gallery symbols for LibreOffice and Apache OpenOffice. Have a look at our [examples](https://github.com/sschmidhuber/LibreSymbols/tree/master/examples) to see what you can do with this extension.
 
 [Download](http://extensions.libreoffice.org/extension-center/libresymbols)
 
