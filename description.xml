@@ -8,6 +8,9 @@
             <license-text xlink:href="license/licensenotice_lgpl_en.txt" lang="en" license-id="en-US" />
             <license-text xlink:href="license/lizenznotiz_lgpl_de.txt" lang="de" license-id="de-DE" />
     	</simple-license>
-  	</registration >
+    </registration >
+    <icon>
+      <default xlink:href="icon.jpg" />
+    </icon>
 </description>
 
