@@ -50,7 +50,7 @@ build_extension() {
     
     # copy files
     cp description.xml ${TEMP_DIR}/description.xml
-    cp doc/icon_100.jpg ${TEMP_DIR}/icon.jpg
+    cp doc/icon_100.png ${TEMP_DIR}/icon.png
     cp Paths.xcu ${TEMP_DIR}/Paths.xcu
     cp -r license ${TEMP_DIR}/license
     cp -r META-INF ${TEMP_DIR}/META-INF
