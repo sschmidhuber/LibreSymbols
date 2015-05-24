@@ -12,7 +12,7 @@ A set of gallery symbols for LibreOffice and Apache OpenOffice. Have a look at o
 
 
 Team:
-* Stefan Schmidhuber
+* [Stefan Schmidhuber](mailto:stefan.schmidhuber@gmx.at)
 * Vikas Jois
  
 Contributors:
