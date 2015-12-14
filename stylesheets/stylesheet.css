@@ -442,6 +442,7 @@ p {
 
 a {
   color: #2879d0;
+  outline: 0;
 }
 a:hover {
   color: #2268b2;
@@ -481,6 +482,21 @@ header h2 {
   position: relative;
   width: 940px;
   margin: 0 auto;
+}
+
+.local-link {
+  color: #9ddcff;
+  font-size: 26px;
+  padding-right: 1em;
+}
+
+.local-link:hover {
+  color: white;
+}
+
+
+#menu {
+  padding-top: 2em;
 }
 
 #content-wrapper {
