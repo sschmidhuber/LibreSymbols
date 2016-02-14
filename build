@@ -6,48 +6,26 @@
 #
 # Stefan Schmidhuber (stefan.schmidhuber@gmx.at)
 
-
 # target directory for extension files
 EXTENSIONS=.
 
-print_help() {
-  echo 'Usage: ./build [version]'
-  echo 'Build a LibreSymbols extension of the given version or the latest'
-  echo 'version if none is given. The optional  parameter "version" is a git tag.'  
-  exit 0
-}
+# get the last git tag as vesion number
+VERSION=$(git tag | tail -n 1)
 
-get_tag() {
-  if [ -z $1 ]; then
-    TAG="last"
-  else
-    TAG=$1
-  fi
-  
-  if [ $TAG = "last" ]; then
-    if [ $(git tag -l | wc -l) -gt 0 ]; then
-      TAG=$(git tag -l | tail -n 1)
-      return 0
-    else
-      echo -e 'ERROR: can not find any tag'
-      exit 1
-    fi
-  else
-    for tmp in $(git tag -l); do
-      if [ $tmp = $TAG ]; then
-	return 0
-      fi
-    done
-    echo 'ERROR: invalid tag "'$TAG'"'
-    exit 1
-  fi
+print_help() {
+  echo -e 'Usage:\tbuild\t\t\tbuild extensions'
+  echo -e '\tbuild -h | --help\tprint this help\n'
+  echo -e '\tBuilds a LibreSymbols extension of the currently ckecked out commit.'
+  echo -e '\tIndependet of the actual version, the latest git tag will be used as'
+  echo -e '\tversion number.\n'
+  exit 0
 }
 
 build_extension() {
   for LANG in $(ls gallery); do
     # create temporary directory
     TEMP_DIR=$(mktemp -d)
-    
+
     # copy files
     cp description.xml ${TEMP_DIR}/description.xml
     cp doc/icon_100.png ${TEMP_DIR}/icon.png
@@ -55,65 +33,62 @@ build_extension() {
     cp -r license ${TEMP_DIR}/license
     cp -r META-INF ${TEMP_DIR}/META-INF
     mkdir ${TEMP_DIR}/gallery
-    cp gallery/${LANG}/* ${TEMP_DIR}/gallery/  
+    cp gallery/${LANG}/* ${TEMP_DIR}/gallery/
     cd ${TEMP_DIR}
-    
+
     # set meta data
-    awk '{sub(/VERSION/, '$TAG'); print $0}' description.xml > description.xml_changed
+    awk '{sub(/VERSION/, '${VERSION}'); print $0}' description.xml > description.xml_changed
     mv description.xml_changed description.xml
-    
+
     # zip files
-    zip -rq LibreSymbols_${TAG}_${LANG}.zip *
-    mv LibreSymbols_${TAG}_${LANG}.zip ${WORKING_DIR}/${EXTENSIONS}/LibreSymbols_${TAG}_${LANG}.oxt
-    
+    zip -rq LibreSymbols_${VERSION}_${LANG}.zip *
+    mv LibreSymbols_${VERSION}_${LANG}.zip ${WORKING_DIR}/${EXTENSIONS}/LibreSymbols_${VERSION}_${LANG}.oxt
+
     # clean up
     cd ${WORKING_DIR}
     rm -r ${TEMP_DIR}
-  done  
+  done
   return 0
 }
 
 
 # entry point
+echo '' # just an empty line for better readability of the following output
 
-if [ ! -z $1 ]; then
-  if [ $1 = "-h" ] || [ $1 = "-help" ] || [ $1 = "--help" ]; then
-    print_help
-  fi
-fi
-
-if [ $# -gt 1 ]; then
+if [[ $# -gt 1 ]]; then
   echo -e 'ERROR: Invalid number of arguments.\n'
   print_help
-fi
-
-get_tag $1
-
-# remember current directory and branch
-WORKING_DIR=$(pwd)
-BRANCH=$(git branch | grep "*" | cut -d" " -f 2)
-
-# remove old builds
-if [ $(ls -l ${EXTENSIONS}/LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
-  echo 'delete old builds ...'
-  rm ${EXTENSIONS}/LibreSymbols_${TAG}_*
-fi
-
-# checkout target version
-git checkout $TAG &> /dev/null
-if [ $? -ne 0 ]; then
-  echo 'checkout '${TAG}' failed, please check if your working directory is clean'
-  echo 'commit your changes or try "git stash" to fix this issue'
-  
   exit 1
 fi
 
-echo -n 'building LibreSymbols version '$TAG' ... '
-build_extension
-git checkout $BRANCH &> /dev/null
-
-if [ $(ls -l ${EXTENSIONS}/LibreSymbols_${TAG}_* 2>/dev/null | wc -l) -gt 0 ]; then
-  echo 'finished succesful'
-else
-  echo 'failed'
+if [[ ! -z $1 ]]; then
+  if [[ $1 = "-h" ]] || [[ $1 = "-help" ]] || [[ $1 = "--help" ]] || [[ $1 = "-?" ]]; then
+    print_help
+  else
+    echo -e 'ERROR: Invalid argument "'$1'"\n'
+    print_help
+    exit 1
+  fi
 fi
+
+# remember current directory and branch
+WORKING_DIR=$(pwd)
+
+# remove old builds
+if [[ $(ls ${EXTENSIONS}/LibreSymbols_${VERSION}_* 2>/dev/null | wc -w) -gt 0 ]]; then
+  echo 'delete old builds ...'
+  rm ${EXTENSIONS}/LibreSymbols_${VERSION}_*
+fi
+
+echo 'building LibreSymbols '${VERSION}' ... '
+build_extension
+
+# success or error message
+if [[ $(ls -l ${EXTENSIONS}/LibreSymbols_${VERSION}_* 2>/dev/null | wc -l) -eq $(ls gallery | wc -w) ]]; then
+  echo -e 'finished successful\n'
+else
+  echo -e 'failed\n'
+  exit 1
+fi
+
+exit 0
