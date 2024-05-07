@@ -11,9 +11,14 @@ A set of gallery symbols for LibreOffice and Apache OpenOffice. Have a look at o
 
 
 
-Team:
+Team
 * [Stefan Schmidhuber](mailto:stefan.schmidhuber@gmx.at)
 * Vikas Jois
  
-Contributors:
+Contributors
 * Uwe Homm
+
+License
+This work is available under the following two lisences:
+* LGPL (v2.1 and v3)
+* CC0
